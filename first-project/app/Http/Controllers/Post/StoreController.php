@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Post;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
     public function __invoke(StoreRequest $request)
     {
         $data = $request->validated();
-        Post::create($data);
+
+        $this->service->store($data);
 
         return redirect()->route('post.index');
     }
