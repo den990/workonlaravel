@@ -28,7 +28,16 @@ Route::group(['namespace' => 'Post'], function () {
 });
 
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
+
+
+    Route::group(['namespace' => 'Post'], function (){
+        Route::get('/post', 'IndexController')->name('admin.post.index');
+    });
+
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/main', 'MainController@index')->name('main');
