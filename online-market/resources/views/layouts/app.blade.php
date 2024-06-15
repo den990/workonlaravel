@@ -16,8 +16,8 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
-    <div id="app">
+<body class="vh-100 d-flex flex-column">
+    <div id="app" class="flex-grow-1">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="{{route('home.index')}}">Online Market</a>
@@ -26,6 +26,11 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ route('home.index') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('about.index')}}">About</a></li>
+
+                        @if (Auth::check() && Auth::user()->isAdmin())
+                            <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Admin Panel</a></li>
+                        @endif
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -50,10 +55,10 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
     </div>
+
+    <footer class="py-5 bg-dark flex-shrink-0">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Online Market(prod by den990) 2024</p></div>
+    </footer>
 </body>
 </html>

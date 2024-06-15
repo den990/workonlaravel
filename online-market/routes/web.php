@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminController;
 
 Auth::routes();
 
@@ -12,3 +13,5 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+
+Route::get('/admin-panel', [AdminController::class, 'index'])->name('admin.index')->middleware(\App\Http\Middleware\AdminMiddleware::class);
