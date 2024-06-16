@@ -27,12 +27,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page"
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" aria-current="page"
                                             href="{{ route('home.index') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('about.index')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('about.index') ? 'active' : '' }}" href="{{route('about.index')}}">About</a></li>
 
                     @if (Auth::check() && Auth::user()->isAdmin())
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Admin Panel</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}" href="{{ route('admin.index') }}">Admin Panel</a></li>
                     @endif
 
                     <li class="nav-item dropdown">
@@ -67,6 +67,34 @@
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
+
+                    <div class="dropdown ms-2">
+                        <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                                 class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">{{ auth()->user()->name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">Новый проект</a></li>
+                            <li><a class="dropdown-item" href="#">Настройки</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.index') }}">Профиль</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                    Выйти
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 @endif
             </div>
         </div>

@@ -26,6 +26,38 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="accommodation" class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="city_id" class="form-select @error('city_id') is-invalid @enderror" name="city_id" required autocomplete="city_id" autofocus>
+                                    @foreach (\App\Models\City::numberToCity as $key => $city)
+                                        <option value="{{ $key }}" {{ old('city_id') == $key ? 'selected' : '' }}>{{ $city }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('accommodation')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
@@ -75,3 +107,4 @@
     </div>
 </div>
 @endsection
+

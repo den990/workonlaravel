@@ -26,33 +26,7 @@
                     </div>
                     <hr>
                     <!-- нижнее дополнительное меню -->
-                    <div class="dropdown pb-4 mb-1">
-                        <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
-                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
-                                 class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">{{ auth()->user()->name }}</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="#">Новый проект</a></li>
-                            <li><a class="dropdown-item" href="#">Настройки</a></li>
-                            <li><a class="dropdown-item" href="#">Профиль</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                    Выйти
-                                </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <!-- содержимое -->
@@ -82,7 +56,7 @@
                                         <div class="col-md-12 mt-2" bis_skin_checked="1">
                                             <div class="form-group" bis_skin_checked="1">
                                                 <textarea name="description" class="form-control" id="message" cols="50"
-                                                          rows="4" placeholder="Product description"></textarea>
+                                                          rows="6" placeholder="Product description"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12 mt-4" bis_skin_checked="1">
@@ -97,8 +71,8 @@
                             </div>
                         </div>
                         <div class="col-lg-6 d-flex align-items-stretch" bis_skin_checked="1">
-                            <div class="info-wrap w-100 p-5 img img-fluid"
-                                 style="background-image: url(https://ecs7.tokopedia.net/img/cache/700/product-1/2018/7/18/1552895/1552895_eeb91cc8-5d6b-4b2e-b0b9-16a7e917d0ad_750_727.jpg);"
+                            <div class="info-wrap w-100 p-5 img img-fluid "
+                                 style="background-image: url(https://ecs7.tokopedia.net/img/cache/700/product-1/2018/7/18/1552895/1552895_eeb91cc8-5d6b-4b2e-b0b9-16a7e917d0ad_750_727.jpg); background-repeat: no-repeat;"
                                  bis_skin_checked="1">
                             </div>
                         </div>

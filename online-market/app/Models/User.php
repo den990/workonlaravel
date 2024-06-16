@@ -21,6 +21,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'phone',
+        'city_id'
+
     ];
 
     /**
@@ -49,6 +52,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(UserRole::class, 'role_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function isAdmin()
