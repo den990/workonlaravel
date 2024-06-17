@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->comment('Primary key');
             $table->string('name')->comment('Name product');
             $table->text('description')->comment('Description');
-            $table->unsignedInteger('evaluation')->comment('Evaluation');
+            $table->unsignedInteger('evaluation')->default(0)->comment('Evaluation');
             $table->unsignedBigInteger('img_id')->nullable()->comment('Image id');
             $table->unsignedBigInteger('author_id')->nullable()->comment('User id');
             $table->timestamps();

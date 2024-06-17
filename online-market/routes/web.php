@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 
 Auth::routes();
 
@@ -20,3 +21,5 @@ Route::get('/admin-panel', [AdminController::class, 'index'])->name('admin.index
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
