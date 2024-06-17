@@ -18,3 +18,5 @@ Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/admin-panel', [AdminController::class, 'index'])->name('admin.index')->middleware(\App\Http\Middleware\AdminMiddleware::class);
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');

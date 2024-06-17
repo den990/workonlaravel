@@ -59,6 +59,20 @@ class User extends Authenticatable
         return $this->belongsTo(City::class, 'city_id');
     }
 
+    public function avatar()
+    {
+        return $this->belongsTo(File::class, 'avatar_id');
+    }
+
+    public function getAvatarPathAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar->file_name);
+        } else {
+            return asset('storage/uploads/no-avatar.svg');
+        }
+    }
+
     public function isAdmin()
     {
         return $this->role->name == 'Admin';

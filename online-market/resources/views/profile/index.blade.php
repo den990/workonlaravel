@@ -6,15 +6,16 @@
                 <div class="col mb-4 mb-lg-0">
                     <div class="card mb-3" style="border-radius: .5rem;">
                         <div class="row g-0">
-                            <div class="col-md-4 gradient-custom text-center text-white"
+                            <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column justify-content-center align-items-center"
                                  style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                <img src="{{ auth()->user()->avatar_path }}"
                                      alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
                                 <h5 class="text-black">{{ auth()->user()->name }}</h5>
+                                <a href="{{ route('profile.edit') }}"><i class="far fa-edit mb-5 text-black" style="font-size: 18px"></i></a>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body p-4">
-                                    <h6>Information</h6>
+                                    <h6>Contacts</h6>
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
@@ -26,7 +27,7 @@
                                             <p class="text-muted"> {{ auth()->user()->phone }}</p>
                                         </div>
                                     </div>
-                                    <h6>Projects</h6>
+                                    <h6>Information</h6>
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">

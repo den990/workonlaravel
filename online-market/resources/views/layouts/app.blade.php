@@ -71,7 +71,7 @@
                     <div class="dropdown ms-2">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                            <img src="{{ auth()->user()->avatar_path }}" alt="hugenerd" width="30" height="30"
                                  class="rounded-circle">
                             <span class="d-none d-sm-inline mx-1">{{ auth()->user()->name }}</span>
                         </a>

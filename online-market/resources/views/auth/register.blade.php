@@ -25,6 +25,19 @@
                             </div>
                         </div>
 
+{{--                        <div class="row mb-3">--}}
+{{--                            <label for="avatar_id" class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <input class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" type="file" id="avatar_id" name="avatar_id" required autocomplete="avatar_id" autofocus>--}}
+
+{{--                                @error('avatar_id')--}}
+{{--                                <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
                         <div class="row mb-3">
                             <label for="accommodation" class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
 
