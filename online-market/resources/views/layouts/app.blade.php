@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', 'Online Market')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -76,7 +76,7 @@
                             <span class="d-none d-sm-inline mx-1">{{ auth()->user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="{{ route('profile.index') }}">Профиль</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.index') }}">{{ __('Profile') }}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -84,7 +84,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                                    Выйти
+                                    {{ __('Exit') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

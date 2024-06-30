@@ -1,6 +1,7 @@
 import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
+import $ from 'jquery';
 import Inputmask from 'inputmask';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,4 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         Inputmask({ mask: '+7 (999) 999-99-99' }).mask(phoneInput);
     }
 });
+
+window.$ = window.jQuery = $;
 

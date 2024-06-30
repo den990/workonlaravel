@@ -24,7 +24,7 @@ class Product extends Model
 
     public function getLogoPathAttribute()
     {
-        if ($this->avatar) {
+        if ($this->img_id) {
             return asset('storage/' . $this->logo->file_name);
         } else {
             return asset('storage/uploads/no-avatar.svg');

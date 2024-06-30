@@ -23,3 +23,5 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
 Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
+Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+Route::get('/product/{id}', [ProductController::class, 'view'])->name('product.view');

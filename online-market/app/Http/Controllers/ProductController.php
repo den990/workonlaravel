@@ -34,4 +34,20 @@ class ProductController extends Controller
 
         return redirect()->back();
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->get();
+
+        return view('product.products_list', compact('products'));
+    }
+
+    public function view($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('product.view', compact('product'));
+    }
 }

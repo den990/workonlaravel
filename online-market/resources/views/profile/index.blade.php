@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', 'My Profile')
+
 @section('content')
     <section style="background-color: #f4f5f7;">
         <div class="container py-5 h-100">
