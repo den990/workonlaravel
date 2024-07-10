@@ -32,7 +32,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Product created successfully!');
     }
 
     public function search(Request $request)
@@ -50,4 +50,47 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         return view('product.view', compact('product'));
     }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('admin.edit_product', compact('product'));
+    }
+
+    public function update(ProductRequest $request, $id)
+    {
+        $data = $request->validated();
+
+        $product = Product::findOrFail($id);
+
+        // Если был загружен новый файл изображения
+        if ($request->hasFile('img_id')) {
+            // Сохранить новый файл
+            $file = $request->file('img_id');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+            // Если у продукта уже есть изображение
+            if ($product->img_id) {
+                $fileModel = File::findOrFail($product->img_id);
+                // Удалить старый файл
+                Storage::disk('public')->delete($fileModel->file_name);
+                $fileModel->file_name = $filePath;
+                $fileModel->save();
+                $data['img_id'] = $fileModel->id;
+            } else {
+                $fileModel = new File;
+                $fileModel->file_name = $filePath;
+
+                $fileModel->save();
+                $data['img_id'] = $fileModel->id;
+            }
+        }
+        // Обновить продукт
+        $product->update($data);
+
+        return redirect()->route('product.edit', ['id' => $product->id])->with('success', 'Product updated successfully');
+    }
+
+
 }
