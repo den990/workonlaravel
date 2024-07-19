@@ -30,4 +30,9 @@ class Product extends Model
             return asset('storage/uploads/no-avatar.svg');
         }
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'categories_id');
+    }
 }

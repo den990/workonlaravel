@@ -21,6 +21,10 @@
                                     <i class='fa fa-edit text-black'></i>
                                     <span class="ms-1 d-none d-sm-inline">Products</span>
                                 </a>
+                                <a href="{{ route('admin.categories') }}" class="nav-link align-middle px-0">
+                                    <i class='fa fa-list text-black'></i>
+                                    <span class="ms-1 d-none d-sm-inline">Categories</span>
+                                </a>
                             </li>
                         </ul>
                     </div>

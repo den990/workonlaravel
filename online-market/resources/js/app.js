@@ -1,7 +1,8 @@
 import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
-import $ from 'jquery';
+import 'jquery-ui/external/jquery-1.8.3/jquery.js'
+import 'jquery-ui/dist/jquery-ui.min.js'
 import Inputmask from 'inputmask';
 
 document.addEventListener('DOMContentLoaded', () => {

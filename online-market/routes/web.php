@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
@@ -19,8 +20,21 @@ Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/admin-panel', [AdminController::class, 'index'])->name('admin.index')->middleware(\App\Http\Middleware\AdminMiddleware::class);
 Route::get('/admin-panel/create-product', [AdminController::class, 'createProduct'])->name('admin.create-product')->middleware(\App\Http\Middleware\AdminMiddleware::class);
 Route::get('/admin-panel/products', [AdminController::class, 'products'])->name('admin.products')->middleware(\App\Http\Middleware\AdminMiddleware::class);
-Route::get('/admin-panel/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit')->middleware(\App\Http\Middleware\AdminMiddleware::class);;
-Route::put('/admin-panel/products/{id}', [ProductController::class, 'update'])->name('product.update')->middleware(\App\Http\Middleware\AdminMiddleware::class);;
+Route::get('/admin-panel/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit')->middleware(\App\Http\Middleware\AdminMiddleware::class);
+Route::put('/admin-panel/products/{id}', [ProductController::class, 'update'])->name('product.update')->middleware(\App\Http\Middleware\AdminMiddleware::class);
+Route::get('/admin-panel/categories/search', [CategoryController::class, 'search'])->name('categories.search')->middleware(\App\Http\Middleware\AdminMiddleware::class);
+
+Route::resource('/admin-panel/categories', CategoryController::class)
+    ->middleware(\App\Http\Middleware\AdminMiddleware::class)
+    ->names([
+        'index' => 'admin.categories',
+        'create' => 'admin.categories.create',
+        'store' => 'admin.categories.store',
+        'show' => 'admin.categories.show',
+        'edit' => 'admin.categories.edit',
+        'update' => 'admin.categories.update',
+        'destroy' => 'admin.categories.destroy',
+    ]);
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,3 +43,5 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('profile.upd
 Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');
 Route::get('/product/{id}', [ProductController::class, 'view'])->name('product.view');
+
+

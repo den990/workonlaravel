@@ -19,8 +19,8 @@
                                            name="name" id="name" placeholder="Product name">
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -32,8 +32,8 @@
                                            onchange="previewAvatar()">
                                     @error('img_id')
                                     <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                     <div class="mt-2">
                                         <img id="preview-avatar" class="img-thumbnail"
@@ -47,8 +47,8 @@
                                            name="price" id="price" placeholder="Price">
                                     @error('price')
                                     <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -60,8 +60,21 @@
                                               placeholder="Product description"></textarea>
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="form-group">
+                                    <label for="category_search" class="form-label">Search Categories</label>
+                                    <input type="text" id="category_search" class="form-control" placeholder="Type to search categories...">
+                                    <div id="selected_categories" class="mt-2"></div>
+                                    <input type="hidden" name="categories" id="categories">
+                                    @error('categories')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -81,4 +94,65 @@
             </div>
         </div>
     </div>
+
+    <script type="module">
+        $(function() {
+            $("#category_search").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/admin-panel/categories/search",
+                        dataType: "json",
+                        data: {
+                            query: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item.name,  // Название категории
+                                    value: item.name,  // Значение для отображения
+                                    id: item.id        // ID категории
+                                };
+                            }));
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    addCategory(ui.item.id, ui.item.value);
+                    $("#category_search").val('');
+                    return false;
+                }
+            });
+        });
+
+        function addCategory(id, name) {
+            let selectedCategories = $("#selected_categories");
+            let existingBadge = selectedCategories.find(`[data-id="${id}"]`);
+
+            if (existingBadge.length) {
+                return; // If category already added, do nothing
+            }
+
+            let categoryBadge = $(
+                `<span class="badge bg-primary mr-2 text-white" data-id="${id}">
+                    ${name}
+                    <button class="btn btn-sm btn-danger px-1 py-0">x</button>
+                </span>`
+            );
+
+            categoryBadge.find('button').on('click', function() {
+                $(this).parent().remove();
+                updateCategoryInput();
+            });
+
+            selectedCategories.append(categoryBadge);
+            updateCategoryInput();
+        }
+
+        function updateCategoryInput() {
+            let categoryIds = $("#selected_categories .badge").map(function() {
+                return $(this).data('id');
+            }).get();
+            $("#categories").val(categoryIds.join(','));
+        }
+    </script>
 @endsection

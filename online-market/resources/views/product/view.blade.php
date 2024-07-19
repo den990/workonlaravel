@@ -14,7 +14,7 @@
                         <h5 class="card-title">{{$product->name}}</h5>
                         <div class="d-flex small text-warning mb-2">
                             @for ($i = 1; $i <= 5; $i++)
-                                @if ($i < $product->evaluation)
+                                @if ($i <= $product->evaluation)
                                     <i class='fa fa-star' style='color: #f3da35'></i>
                                 @else
                                     <i class='fa fa-star' style='color:#858585'></i>
