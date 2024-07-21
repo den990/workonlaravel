@@ -101,7 +101,7 @@
                 source: function(request, response) {
                     $.ajax({
                         url: "/admin-panel/categories/search",
-                        dataType: "json",
+                        method: "json",
                         data: {
                             query: request.term
                         },
@@ -133,7 +133,7 @@
             }
 
             let categoryBadge = $(
-                `<span class="badge bg-primary mr-2 text-white" data-id="${id}">
+                `<span class="badge bg-primary ms-2 text-white" data-id="${id}">
                     ${name}
                     <button class="btn btn-sm btn-danger px-1 py-0">x</button>
                 </span>`

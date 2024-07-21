@@ -30,7 +30,12 @@ class ProductController extends Controller
             $data['img_id'] = $fileModel->id;
         }
 
-        Product::create($data);
+        $product = Product::create($data);
+
+        if ($request->has('categories')) {
+            $categoryIds = explode(',', $request->input('categories'));
+            $product->categories()->sync($categoryIds);
+        }
 
         return redirect()->back()->with('success', 'Product created successfully!');
     }
@@ -86,11 +91,19 @@ class ProductController extends Controller
                 $data['img_id'] = $fileModel->id;
             }
         }
-        // Обновить продукт
+
         $product->update($data);
+
+        if ($request->has('categories')) {
+            $categoryIds = explode(',', $request->input('categories'));
+            if (empty($categoryIds[0])) {
+                $product->categories()->detach();
+            } else {
+                $product->categories()->sync($categoryIds);
+            }
+        }
 
         return redirect()->route('product.edit', ['id' => $product->id])->with('success', 'Product updated successfully');
     }
-
 
 }

@@ -77,4 +77,9 @@ class User extends Authenticatable
     {
         return $this->role->name == 'Admin';
     }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

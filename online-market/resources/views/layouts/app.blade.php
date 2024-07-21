@@ -27,12 +27,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" aria-current="page"
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}"
+                                            aria-current="page"
                                             href="{{ route('home.index') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('about.index') ? 'active' : '' }}" href="{{route('about.index')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('about.index') ? 'active' : '' }}"
+                                            href="{{route('about.index')}}">About</a></li>
 
                     @if (Auth::check() && Auth::user()->isAdmin())
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}" href="{{ route('admin.index') }}">Admin Panel</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}"
+                                                href="{{ route('admin.index') }}">Admin Panel</a></li>
                     @endif
 
                     <li class="nav-item dropdown">
@@ -60,13 +63,12 @@
 
                 @if (Auth::check())
 
-                    <form class="ms-2 d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+                    <a class=" ms-2  btn btn-outline-dark" href="{{route('cart.index')}}">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-count">{{ Auth::user()->cartItems->count() }}</span>
+                    </a>
+
 
                     <div class="dropdown ms-2">
                         <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
@@ -76,7 +78,8 @@
                             <span class="d-none d-sm-inline mx-1">{{ auth()->user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="{{ route('profile.index') }}">{{ __('Profile') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.index') }}">{{ __('Profile') }}</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

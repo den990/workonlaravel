@@ -32,10 +32,38 @@
                     @if(Request::is('admin-panel/products'))
                         <a class="btn btn-outline-primary mt-auto" href="{{ route('product.edit', $product->id) }}">Edit</a>
                     @else
-                        <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+                        <button type="button" class="btn btn-outline-dark mt-auto add-to-cart" data-product-id="{{ $product->id }}">Add to cart</button>
                     @endif
                 </div>
             </div>
         </div>
     </div>
 @endforeach
+
+<script type="module">
+    $(document).ready(function () {
+        $('.add-to-cart').on('click', function (e) {
+
+            var button = $(this);
+            var productId = button.data('product-id');
+
+            $.ajax({
+                url: 'http://127.0.0.1:8000/cart/add',
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    product_id: productId,
+                    quantity: 1,
+                },
+                success: function (response) {
+                    $('#cart-count').text(response.cartCount);
+                    alert('Product added to cart!');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Failed to add product to cart.');
+                }
+            });
+        });
+    });
+</script>

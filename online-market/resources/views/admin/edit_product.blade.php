@@ -21,7 +21,7 @@
                     @enderror
                     <div class="mt-2">
                         <img id="preview-avatar" class="img-thumbnail"
-                             style="max-width: 150px; " src="{{$product->logo_path}}">
+                             style="max-width: 150px;" src="{{$product->logo_path}}">
                     </div>
                 </div>
             </div>
@@ -37,7 +37,93 @@
                 <label for="description">Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3" required>{{ $product->description }}</textarea>
             </div>
+
+            <div class="form-group fw-semibold">
+                <label for="category_search" class="form-label">Search Categories</label>
+                <input type="text" id="category_search" class="form-control" placeholder="Type to search categories...">
+                <div id="selected_categories" class="mt-2">
+                    @foreach($product->categories as $category)
+                        <span class="badge bg-primary mr-2 text-white" data-id="{{ $category->id }}">
+                            {{ $category->name }}
+                            <button class="btn btn-sm btn-danger px-1 py-0">x</button>
+                        </span>
+                    @endforeach
+                </div>
+                <input type="hidden" name="categories" id="categories" value="{{ $product->categories->pluck('id')->join(',') }}">
+                @error('categories')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-primary mt-3">Update Product</button>
         </form>
     </div>
+
+    <script type="module">
+        $(function() {
+            $("#category_search").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/admin-panel/categories/search",
+                        dataType: "json",
+                        data: {
+                            query: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item.name,
+                                    value: item.name,
+                                    id: item.id
+                                };
+                            }));
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    addCategory(ui.item.id, ui.item.value);
+                    $("#category_search").val('');
+                    return false;
+                }
+            });
+
+            $("#selected_categories").on('click', 'button', function() {
+                $(this).parent().remove();
+                updateCategoryInput();
+            });
+        });
+
+        function addCategory(id, name) {
+            let selectedCategories = $("#selected_categories");
+            let existingBadge = selectedCategories.find(`[data-id="${id}"]`);
+
+            if (existingBadge.length) {
+                return;
+            }
+
+            let categoryBadge = $(
+                `<span class="badge bg-primary mr-2 text-white" data-id="${id}">
+                    ${name}
+                    <button class="btn btn-sm btn-danger px-1 py-0">x</button>
+                </span>`
+            );
+
+            categoryBadge.find('button').on('click', function() {
+                $(this).parent().remove();
+                updateCategoryInput();
+            });
+
+            selectedCategories.append(categoryBadge);
+            updateCategoryInput();
+        }
+
+        function updateCategoryInput() {
+            let categoryIds = $("#selected_categories .badge").map(function() {
+                return $(this).data('id');
+            }).get();
+            $("#categories").val(categoryIds.join(','));
+        }
+    </script>
 @endsection
