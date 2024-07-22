@@ -18,32 +18,110 @@
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="cart-items">
                         @foreach ($cartItems as $item)
-                            <tr>
-                                <td> <a href="{{ route('product.view', $item->product->id) }}">{{ $item->product->name }}</a></td>
+                            <tr data-id="{{ $item->id }}">
+                                <td><a href="{{ route('product.view', $item->product->id) }}">{{ $item->product->name }}</a></td>
                                 <td>
-                                    <form action="{{ route('cart.update', $item->id) }}" method="POST">
-                                        @csrf
-                                        <input type="number" name="quantity" value="{{ $item->quantity }}" min="1">
-                                        <button type="submit" class="btn btn-primary btn-sm">Update</button type="submit">
-                                    </form>
+                                    <button class="btn btn-sm btn-secondary update-quantity" data-action="decrement">-</button>
+                                    <input type="number" class="quantity-input" value="{{ $item->quantity }}" min="1" readonly>
+                                    <button class="btn btn-sm btn-secondary update-quantity" data-action="increment">+</button>
                                 </td>
                                 <td>${{ $item->product->price }}</td>
-                                <td>${{ $item->product->price * $item->quantity }}</td>
+                                <td class="item-total">${{ $item->product->price * $item->quantity }}</td>
                                 <td>
-                                    <form action="{{ route('cart.remove', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                                    </form>
+                                    <button class="btn btn-danger btn-sm remove-item">Remove</button>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    <div>
+                        <h4>Total: $<span id="cart-total">{{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h4>
+                        <button class="btn btn-primary" id="checkout-btn">Checkout</button>
+                    </div>
                 @endif
             </div>
         </div>
     </div>
+
+    <script type="module">
+        $(document).ready(function () {
+            function updateCartTotal() {
+                let total = 0;
+                $('.item-total').each(function () {
+                    total += parseFloat($(this).text().substring(1));
+                });
+                $('#cart-total').text(total.toFixed(2));
+            }
+
+            $('.update-quantity').click(function () {
+                const row = $(this).closest('tr');
+                const quantityInput = row.find('.quantity-input');
+                let quantity = parseInt(quantityInput.val());
+                const action = $(this).data('action');
+
+                if (action === 'increment') {
+                    quantity++;
+                } else if (action === 'decrement' && quantity > 1) {
+                    quantity--;
+                }
+
+                quantityInput.val(quantity);
+
+                // Update quantity via AJAX
+                const itemId = row.data('id');
+                $.ajax({
+                    url: `/cart/update/${itemId}`,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        quantity: quantity
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            const itemTotal = row.find('.item-total');
+                            itemTotal.text(`$${(data.price * quantity).toFixed(2)}`);
+                            updateCartTotal();
+                        }
+                    }
+                });
+            });
+
+            $('.remove-item').click(function () {
+                const row = $(this).closest('tr');
+                const itemId = row.data('id');
+
+                $.ajax({
+                    url: `/cart/remove/${itemId}`,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            row.remove();
+                            updateCartTotal();
+                        }
+                    }
+                });
+            });
+
+            $('#checkout-btn').click(function () {
+                $.ajax({
+                    url: `{{route('order.create')}}`,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = `/orders`;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 @endsection

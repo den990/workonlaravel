@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
+        <div class="card mb-3 col-8">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="{{$product->logo_path}}" class="img-fluid rounded-start w-100" alt="...">
@@ -21,8 +21,7 @@
                                 @endif
                             @endfor
                         </div>
-                        <p class="card-text">Это более широкая карта с вспомогательным текстом ниже в качестве
-                            естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
+                        <p class="card-text">{{ $product->description }}</p>
                         <h5 class="fw-bold">Price: {{$product->price}}$</h5>
                         <div class="mb-4 bottom-0">
                             <p class=" mb-1 text-muted small">

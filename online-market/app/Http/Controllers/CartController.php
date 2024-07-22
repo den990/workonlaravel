@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -50,18 +51,28 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        $cartItem = CartItem::findOrFail($id);
+        $cartItem = CartItem::find($id);
         $cartItem->delete();
 
-        return redirect()->back()->with('success', 'Product removed from cart!');
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        $cartItem = CartItem::findOrFail($id);
-        $cartItem->quantity = $request->input('quantity');
+        $cartItem = CartItem::find($id);
+        $cartItem->quantity = $request->quantity;
         $cartItem->save();
 
-        return redirect()->back()->with('success', 'Cart updated!');
+        return response()->json([
+            'success' => true,
+            'price' => $cartItem->product->price
+        ]);
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 }

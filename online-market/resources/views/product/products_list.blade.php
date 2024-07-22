@@ -29,10 +29,14 @@
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                    @if(Request::is('admin-panel/products'))
-                        <a class="btn btn-outline-primary mt-auto" href="{{ route('product.edit', $product->id) }}">Edit</a>
+                    @if (\Illuminate\Support\Facades\Auth::check())
+                        @if(Request::is('admin-panel/products'))
+                            <a class="btn btn-outline-primary mt-auto" href="{{ route('product.edit', $product->id) }}">Edit</a>
+                        @else
+                            <button type="button" class="btn btn-outline-dark mt-auto add-to-cart" data-product-id="{{ $product->id }}">Add to cart</button>
+                        @endif
                     @else
-                        <button type="button" class="btn btn-outline-dark mt-auto add-to-cart" data-product-id="{{ $product->id }}">Add to cart</button>
+                        <a class="btn btn-outline-dark mt-auto" href="{{route('login')}}">Add to cart</a>
                     @endif
                 </div>
             </div>
