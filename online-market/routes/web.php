@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
@@ -53,5 +54,7 @@ Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('car
 
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/order/create', [OrderController::class, 'createOrder'])->name('order.create');
+
+Route::post('/product/{id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 

@@ -52,7 +52,7 @@ class ProductController extends Controller
 
     public function view($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('reviews.user')->findOrFail($id);
         return view('product.view', compact('product'));
     }
 
