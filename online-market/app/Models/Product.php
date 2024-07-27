@@ -40,4 +40,9 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function photos()
+    {
+        return $this->belongsToMany(File::class, 'product_photo_file');
+    }
 }

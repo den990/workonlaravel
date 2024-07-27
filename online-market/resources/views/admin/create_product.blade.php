@@ -41,6 +41,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <label for="photos" class="col-form-label">{{ __('Product Photos') }}</label>
+                                <div class="form-group">
+                                    <input type="file" class="form-control @error('photos') is-invalid @enderror" id="photos" name="photos[]" multiple>
+                                    @error('photos')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                    <div id="photo-previews" class="mt-2"></div>
+                                </div>
+                            </div>
                             <div class="col-md-12 mt-2">
                                 <div class="form-group">
                                     <input type="number" class="form-control @error('price') is-invalid @enderror"
@@ -154,5 +166,31 @@
             }).get();
             $("#categories").val(categoryIds.join(','));
         }
+
+
+        document.getElementById('photos').addEventListener('change', function(event) {
+            let photoPreviews = document.getElementById('photo-previews');
+            photoPreviews.innerHTML = ''; // Clear existing previews
+
+            let files = event.target.files;
+
+            if (files.length > 15) {
+                alert('You can upload up to 15 photos.');
+                event.target.value = '';
+                return;
+            }
+
+            Array.from(files).forEach(file => {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-thumbnail m-2';
+                    img.style.maxWidth = '150px';
+                    photoPreviews.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
     </script>
 @endsection

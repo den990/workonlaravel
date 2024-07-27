@@ -37,6 +37,19 @@ class ProductController extends Controller
             $product->categories()->sync($categoryIds);
         }
 
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                $fileName = time() . '_' . $photo->getClientOriginalName();
+                $filePath = $photo->storeAs('uploads', $fileName, 'public');
+
+                $fileModel = new File;
+                $fileModel->file_name = $filePath;
+                $fileModel->save();
+
+                $product->photos()->attach($fileModel->id);
+            }
+        }
+
         return redirect()->back()->with('success', 'Product created successfully!');
     }
 
