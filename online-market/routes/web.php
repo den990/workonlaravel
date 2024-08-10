@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
@@ -56,5 +58,14 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/order/create', [OrderController::class, 'createOrder'])->name('order.create');
 
 Route::post('/product/{id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin-panel/support', [ChatController::class, 'supportIndex'])->name('admin.support.index');
+    Route::get('/admin-panel/support/chat/{chatId}/messages', [ChatController::class, 'getChatMessages']);
+    Route::get('/chat/{chatId}', [ChatController::class, 'index']);
+    Route::post('/chats/{chatId}/messages', [MessageController::class, 'store']);
+});
+
 
 

@@ -25,6 +25,10 @@
                                     <i class='fa fa-list text-black'></i>
                                     <span class="ms-1 d-none d-sm-inline">Categories</span>
                                 </a>
+                                <a href="{{ route('admin.support.index') }}" class="nav-link align-middle px-0">
+                                    <i class='fa fa-message text-black'></i>
+                                    <span class="ms-1 d-none d-sm-inline">Support chat</span>
+                                </a>
                             </li>
                         </ul>
                     </div>

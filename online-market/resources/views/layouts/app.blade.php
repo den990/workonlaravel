@@ -36,6 +36,8 @@
                     @if (Auth::check() && Auth::user()->isAdmin())
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}"
                                                 href="{{ route('admin.index') }}">Admin Panel</a></li>
+                    @else:
+
                     @endif
 
                     <li class="nav-item dropdown">
