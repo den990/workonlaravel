@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreGuestRequest extends FormRequest
 {
@@ -12,6 +14,15 @@ class StoreGuestRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('phone')) {
+            $this->merge([
+                'phone' => ltrim($this->phone, '+'),
+            ]);
+        }
     }
 
     /**
@@ -25,8 +36,29 @@ class StoreGuestRequest extends FormRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:guests',
-            'phone' => 'required|string|max:15|unique:guests',
+            'phone' => [
+                'required',
+                'string',
+                'unique:guests',
+                'regex:/^\+?\d{11,12}$/',
+                function ($attribute, $value, $fail) {
+                    $digitsOnly = str_replace('+', '', $value);
+                    if (strlen($digitsOnly) !== 11) {
+                        $fail('Phone number must contain 11 digits without "+" or 12 digits with "+".');
+                    }
+                }
+            ],
             'country' => 'string|max:255'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+
+        throw new HttpResponseException(response()->json([
+            'message' => 'Validation failed',
+            'errors' => $errors
+        ], 422));
     }
 }

@@ -12,7 +12,7 @@ class Guest extends Model
         'first_name', 'last_name', 'email', 'phone', 'country',
     ];
 
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     public $timestamps = false;
 
     protected static function boot()
