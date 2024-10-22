@@ -22,19 +22,19 @@
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
-                                            <h6>Email</h6>
+                                            <h6>{{ __('Email') }}</h6>
                                             <p class="text-muted">{{ auth()->user()->email }}</p>
                                         </div>
                                         <div class="col-6 mb-3">
-                                            <h6>Phone</h6>
+                                            <h6>{{ __('Phone') }}</h6>
                                             <p class="text-muted"> {{ auth()->user()->phone }}</p>
                                         </div>
                                     </div>
-                                    <h6>Information</h6>
+                                    <h6>{{ __('Information') }}</h6>
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
-                                            <h6>City</h6>
+                                            <h6>{{ __('City') }}</h6>
                                             <p class="text-muted">{{ auth()->user()->city->name}}</p>
                                         </div>
                                     </div>
@@ -51,5 +51,4 @@
             </div>
         </div>
     </section>
-
 @endsection

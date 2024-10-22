@@ -8,7 +8,7 @@
             <div class="col-lg-6">
                 <div class="contact-wrap w-100 p-md-5 p-4">
                     <h3>Product Creation</h3>
-                    <p class="mb-4">Fill in the fields below to create a product</p>
+                    <p class="mb-4">{{ __('Fill in the fields below to create a product') }}</p>
                     <form method="POST" action="{{ route('product.create') }}" class="contactForm mt-1"
                           enctype="multipart/form-data">
                         @csrf
@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-md-12 mt-2">
                                 <div class="form-group">
-                                    <label for="category_search" class="form-label">Search Categories</label>
+                                    <label for="category_search" class="form-label">{{ __('Search Categories') }}</label>
                                     <input type="text" id="category_search" class="form-control" placeholder="Type to search categories...">
                                     <div id="selected_categories" class="mt-2"></div>
                                     <input type="hidden" name="categories" id="categories">

@@ -6,8 +6,8 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Online Market</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Online Market</p>
+                <h1 class="display-4 fw-bolder">{{ __('Online Market') }}</h1>
+                <p class="lead fw-normal text-white-50 mb-0">{{ __('Online Market') }}</p>
             </div>
         </div>
     </header>
@@ -18,8 +18,8 @@
                 <form id="search-form" class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search for products" id="query"
                            name="query" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    <button class="btn btn-outline-danger ms-2" type="button" id="clear-search">Clear</button>
+                    <button class="btn btn-outline-success" type="submit">{{ __('Search') }}</button>
+                    <button class="btn btn-outline-danger ms-2" type="button" id="clear-search">{{ __('Clear') }}</button>
                 </form>
             </div>
         </div>

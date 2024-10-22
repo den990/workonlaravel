@@ -58,11 +58,18 @@
             const sendMessageButton = document.getElementById('send-message');
             let isLoading = false;
 
+
+
             document.querySelectorAll('.chat-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const chatId = this.dataset.chatId;
                     loadChat(chatId);
+
+                    window.Echo.private('chat.' + chatId)
+                        .listen('MessageSent', (e) => {
+                            addMessage(e.message, true, false);
+                        });
                 });
             });
 
@@ -132,7 +139,6 @@
                 const messageElement = document.createElement('div');
                 messageElement.className = 'card mb-3';
                 messageElement.setAttribute('data-message-id', message.id);
-                console.log(message);
                 messageElement.innerHTML = `
                     <div class="card-header d-flex justify-content-between p-3">
                         <div class="d-flex flex-row align-items-center">
@@ -165,7 +171,7 @@
 
             function sendMessage(chatId) {
                 const message = messageInput.value.trim();
-                if (message === '') return; // Не отправлять пустое сообщение
+                if (message === '') return;
 
                 messageInput.value = '';
 
@@ -178,27 +184,21 @@
                     body: JSON.stringify({ text: message, chat_id: chatId })
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        addMessage(data, true, false);
-                    })
-                    .catch(error => {
-                        console.error('Send message error:', error);
-                    });
             }
         });
     </script>
 
     <style>
         .chat::-webkit-scrollbar {
-            width: 8px;               /* width of the entire scrollbar */
+            width: 8px;
         }
         .chat::-webkit-scrollbar-track {
-            background: #f8fafc;        /* color of the tracking area */
+            background: #f8fafc;
         }
         .chat::-webkit-scrollbar-thumb {
-            background-color: gray;    /* color of the scroll thumb */
-            border-radius: 20px;       /* roundness of the scroll thumb */
-            border: 1px solid #f8fafc;  /* creates padding around scroll thumb */
+            background-color: gray;
+            border-radius: 20px;
+            border: 1px solid #f8fafc;
         }
     </style>
 @endsection

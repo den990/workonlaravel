@@ -16,6 +16,8 @@ class MessageController extends Controller
             'user_id' => auth()->id(),
             'text' => $request->input('text'),
         ]);
+        $message['user'] = auth()->user();
+        $message['avatar_path'] = auth()->user()->avatar_path;
 
         broadcast(new \App\Events\MessageSent($message))->toOthers();
 

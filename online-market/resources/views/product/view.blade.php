@@ -46,7 +46,7 @@
 
     <div class="col d-flex justify-content-center mt-4">
         <div class="col-8">
-            <h3>Reviews</h3>
+            <h3>{{ __('Reviews') }}</h3>
             @foreach($product->reviews as $review)
                 <div class="card mb-3">
                     <div class="card-body">
@@ -67,7 +67,7 @@
             @endforeach
 
             @auth
-                <h3>Leave a Review</h3>
+                <h3>{{ __('Leave a Review') }}</h3>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul class="mb-0">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="rating" id="rating">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </form>
             @endauth
 

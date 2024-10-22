@@ -6,16 +6,16 @@
             <div class="col-md-8">
                 <h3>Your Cart</h3>
                 @if ($cartItems->isEmpty())
-                    <p>Your cart is empty</p>
+                    <p>{{ __('Your cart is empty') }}</p>
                 @else
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                            <th>Actions</th>
+                            <th>{{ __('Product') }}</th>
+                            <th>{{ __('Quantity') }}</th>
+                            <th>{{ __('Price') }}</th>
+                            <th>{{ __('Total') }}</th>
+                            <th>{{ __('Actions') }}</th>
                         </tr>
                         </thead>
                         <tbody id="cart-items">
@@ -30,7 +30,7 @@
                                 <td>${{ $item->product->price }}</td>
                                 <td class="item-total">${{ $item->product->price * $item->quantity }}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm remove-item">Remove</button>
+                                    <button class="btn btn-danger btn-sm remove-item">{{ __('Remove') }}</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -38,7 +38,7 @@
                     </table>
                     <div>
                         <h4>Total: $<span id="cart-total">{{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h4>
-                        <button class="btn btn-primary" id="checkout-btn">Checkout</button>
+                        <button class="btn btn-primary" id="checkout-btn">{{ __('Checkout') }}</button>
                     </div>
                 @endif
             </div>
@@ -69,7 +69,6 @@
 
                 quantityInput.val(quantity);
 
-                // Update quantity via AJAX
                 const itemId = row.data('id');
                 $.ajax({
                     url: `/cart/update/${itemId}`,

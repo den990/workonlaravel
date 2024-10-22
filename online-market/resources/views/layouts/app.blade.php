@@ -37,7 +37,8 @@
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}"
                                                 href="{{ route('admin.index') }}">Admin Panel</a></li>
                     @else:
-
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}"
+                                            href="{{ route('support.index') }}">Support</a></li>
                     @endif
 
                     <li class="nav-item dropdown">

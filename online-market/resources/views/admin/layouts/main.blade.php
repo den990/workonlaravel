@@ -9,25 +9,25 @@
                 <div class="d-flex flex-column justify-content-between align-items-center align-items-sm-start px-3 pt-2 text-white">
                     <div>
                         <a href="{{ route('admin.index') }}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-black text-decoration-none">
-                            <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
+                            <span class="fs-5 d-none d-sm-inline">{{ __('Admin Panel') }}</span>
                         </a>
                         <ul class="nav nav-pills flex-column align-items-center align-items-sm-start" id="menu">
                             <li class="nav-item">
                                 <a href="{{ route('admin.create-product') }}" class="nav-link align-middle px-0">
                                     <i class='fa fa-save text-black'></i>
-                                    <span class="ms-1 d-none d-sm-inline">Create product</span>
+                                    <span class="ms-1 d-none d-sm-inline">{{ __('Create product') }}</span>
                                 </a>
                                 <a href="{{ route('admin.products') }}" class="nav-link align-middle px-0">
                                     <i class='fa fa-edit text-black'></i>
-                                    <span class="ms-1 d-none d-sm-inline">Products</span>
+                                    <span class="ms-1 d-none d-sm-inline">{{ __('Products') }}</span>
                                 </a>
                                 <a href="{{ route('admin.categories') }}" class="nav-link align-middle px-0">
                                     <i class='fa fa-list text-black'></i>
-                                    <span class="ms-1 d-none d-sm-inline">Categories</span>
+                                    <span class="ms-1 d-none d-sm-inline">{{ __('Categories') }}</span>
                                 </a>
                                 <a href="{{ route('admin.support.index') }}" class="nav-link align-middle px-0">
                                     <i class='fa fa-message text-black'></i>
-                                    <span class="ms-1 d-none d-sm-inline">Support chat</span>
+                                    <span class="ms-1 d-none d-sm-inline">{{ __('Support chat') }}</span>
                                 </a>
                             </li>
                         </ul>

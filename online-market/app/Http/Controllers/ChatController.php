@@ -11,7 +11,8 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $chats = Chat::with('messages')->get();
+        $userId = auth()->user()->id;
+        $chats = Chat::where('user2_id', $userId)->with('messages')->get();
         return view('chat.index', compact('chats'));
     }
 

@@ -9,8 +9,8 @@
                 <form id="search-form" class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search for products" id="query"
                            name="query" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    <button class="btn btn-outline-danger ms-2" type="button" id="clear-search">Clear</button>
+                    <button class="btn btn-outline-success" type="submit">{{ __('Search') }}</button>
+                    <button class="btn btn-outline-danger ms-2" type="button" id="clear-search">{{ __('Clear') }}</button>
                 </form>
             </div>
         </div>

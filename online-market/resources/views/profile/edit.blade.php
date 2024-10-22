@@ -32,7 +32,6 @@
                                         <img src="{{ auth()->user()->avatar_path }}" id="current-avatar" class="img-thumbnail" alt="Current Avatar" style="max-width: 150px;">
                                     </div>
 
-                                    <!-- Preview New Avatar -->
                                     <div class="mb-3">
                                         <img id="preview-avatar" class="img-thumbnail" style="max-width: 150px; display: none;">
                                     </div>

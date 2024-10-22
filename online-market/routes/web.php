@@ -63,7 +63,7 @@ Route::post('/product/{id}/reviews', [ReviewController::class, 'store'])->name('
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin-panel/support', [ChatController::class, 'supportIndex'])->name('admin.support.index');
     Route::get('/admin-panel/support/chat/{chatId}/messages', [ChatController::class, 'getChatMessages']);
-    Route::get('/chat/{chatId}', [ChatController::class, 'index']);
+    Route::get('/support', [ChatController::class, 'index'])->name('support.index');
     Route::post('/chats/{chatId}/messages', [MessageController::class, 'store']);
 });
 

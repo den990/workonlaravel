@@ -4,7 +4,7 @@
 
 @section('admin-content')
     <div class="col-6 mt-5 ms-2">
-        <h3>Edit Product</h3>
+        <h3>{{ __('Edit Product') }}</h3>
         <form method="POST" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -26,20 +26,20 @@
                 </div>
             </div>
             <div class="form-group fw-semibold">
-                <label for="name">Product Name</label>
+                <label for="name">{{ __('Product Name') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
             </div>
             <div class="form-group fw-semibold">
-                <label for="price">Price</label>
+                <label for="price">{{ __('Price') }}</label>
                 <input type="number" class="form-control" id="price" name="price" value="{{ $product->price }}" required>
             </div>
             <div class="form-group fw-semibold">
-                <label for="description">Description</label>
+                <label for="description">{{ __('Description') }}</label>
                 <textarea class="form-control" id="description" name="description" rows="3" required>{{ $product->description }}</textarea>
             </div>
 
             <div class="form-group fw-semibold">
-                <label for="category_search" class="form-label">Search Categories</label>
+                <label for="category_search" class="form-label">{{ __('Search Categories') }}</label>
                 <input type="text" id="category_search" class="form-control" placeholder="Type to search categories...">
                 <div id="selected_categories" class="mt-2">
                     @foreach($product->categories as $category)
@@ -57,7 +57,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Update Product</button>
+            <button type="submit" class="btn btn-primary mt-3">{{ __('Update Product') }}</button>
         </form>
     </div>
 
